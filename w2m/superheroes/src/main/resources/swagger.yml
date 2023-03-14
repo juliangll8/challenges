@@ -1,0 +1,113 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Superhero API"
+basePath: /api
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /superhero:
+    post:
+      summary: Create a superhero
+      parameters:
+        - in: body
+          name: superhero
+          description: The superhero to create
+          required: true
+          schema:
+            $ref: "#/definitions/SuperheroDTO"
+      responses:
+        201:
+          description: Superhero created
+          schema:
+            $ref: "#/definitions/SuperheroDTO"
+  /superhero/{id}:
+    put:
+      summary: Update a superhero
+      parameters:
+        - name: id
+          in: path
+          description: ID of superhero to update
+          required: true
+          type: integer
+        - in: body
+          name: superhero
+          description: The updated superhero
+          required: true
+          schema:
+            $ref: "#/definitions/SuperheroDTO"
+      responses:
+        200:
+          description: Superhero updated
+          schema:
+            $ref: "#/definitions/SuperheroDTO"
+    delete:
+      summary: Delete a superhero
+      parameters:
+        - name: id
+          in: path
+          description: ID of superhero to delete
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Superhero deleted
+  /superhero/resurrect:
+    post:
+      summary: Resurrect a superhero
+      parameters:
+        - in: body
+          name: name
+          description: The name of the superhero to resurrect
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Superhero resurrected
+  /superhero/all:
+    get:
+      summary: Get all superheroes
+      parameters:
+        - in: query
+          name: matchingName
+          description: Filter superheroes by name
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of superheroes
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/SuperheroDTO"
+  /api/admin/initialSetup:
+       post:
+         summary: Creates initial setup for the application
+         responses:
+           '200':
+             description: Initial setup created successfully
+           '500':
+             description: Error occurred while creating initial setup
+         x-swagger-router-controller: com.w2m.controller.AdminController
+         operationId: initialSetup
+         tags:
+           - admin
+definitions:
+  SuperheroDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      superpower:
+        type: string
+      strength:
+        type: integer
+    required:
+      - name
+      - superpower
+      - strength

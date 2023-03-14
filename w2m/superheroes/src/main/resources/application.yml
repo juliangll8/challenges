@@ -1,0 +1,17 @@
+spring:
+  security.user:
+    name: w2m
+    password: difficultPass
+  datasource:
+    url: jdbc:h2:mem:superheroes_db
+    username: postgres
+    password: postgres
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: validate
+  flyway:
+    locations: classpath:db/migration
+    enabled: true
+  h2:
+    console.enabled: true
