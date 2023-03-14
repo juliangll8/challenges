@@ -1,0 +1,8 @@
+version: '1'
+services:
+  superheroes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
